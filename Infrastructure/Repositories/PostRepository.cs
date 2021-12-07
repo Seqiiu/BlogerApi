@@ -26,14 +26,12 @@ namespace Infrastructure.Repositories
         }
         public Post Add(Post post)
         {
-            post.Created = DateTime.UtcNow;
             _context.Posts.Add(post);
             _context.SaveChanges();
             return post;
         }
         public void Update(Post post)
         {
-            post.LastModified = DateTime.UtcNow;
             _context.Posts.Update(post);
             _context.SaveChanges();
         }

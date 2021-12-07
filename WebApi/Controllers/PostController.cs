@@ -1,7 +1,9 @@
 ﻿using Application.Dto;
 using Application.Interfaces;
+using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using System.Linq;
 
 namespace WebApi.Controllers
 {

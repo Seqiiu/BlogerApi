@@ -9,15 +9,14 @@ using System.Threading.Tasks;
 
 namespace Application.Dto
 {
-    public class PostDto : IMap
+    public class CreatePostDto : IMap
     {
-        public int Id { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Post, PostDto>();
+            profile.CreateMap<CreatePostDto, Post>();
         }
     }
 }

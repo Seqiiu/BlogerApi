@@ -1,12 +1,10 @@
 ﻿using Application.Dto;
 using Application.Interfaces;
 using AutoMapper;
+using Domain.Entities;
 using Domain.Interface;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Services
 {
@@ -19,6 +17,7 @@ namespace Application.Services
             _postRepository = postRepository;
             _mapper = mapper;
         }
+
         public IEnumerable<PostDto> GetAllPosts()
         {
             var posts =
@@ -29,6 +28,30 @@ namespace Application.Services
         public PostDto GetPostById(int id)
         {
             return _mapper.Map<PostDto>(_postRepository.GetById(id));
+        }
+        public PostDto AddNewPost(CreatePostDto newPost)
+        {
+            if (string.IsNullOrEmpty(newPost.Title))
+            {
+                throw new Exception("Post can not have an empty title.");
+            }
+            var post = _mapper.Map<Post>(newPost);
+            _postRepository.Add(post);
+            return _mapper.Map<PostDto>(post);
+        }
+
+        public void UpdatePost(UpdatePostDto updatePost)
+        {
+            var existingPost = _postRepository.GetById(updatePost.Id);
+            var post = _mapper.Map(updatePost, existingPost);
+            _postRepository.Update(post);
+        }
+
+        public void DeletePost(int id)
+        {
+            var post = _postRepository.GetById(id);
+            _postRepository.Delete(post);
+
         }
     }
 }
